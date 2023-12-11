@@ -42,7 +42,12 @@ INSTALLED_APPS = [
     'mptt',
     'django_mptt_admin',
     'debug_toolbar',
-    'apps.accounts'
+    'apps.accounts',
+    'taggit',
+    'ckeditor_uploader',
+    'ckeditor',
+    'django_recaptcha',
+
 ]
 
 MIDDLEWARE = [
@@ -119,8 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = (BASE_DIR / 'static')
-
+STATICFILES_DIRS = [BASE_DIR / 'templates/js/']
+STATIC_ROOT = BASE_DIR / 'static/'
 MEDIA_ROOT = (BASE_DIR / 'media')
 MEDIA_URL = '/media/'
 
@@ -128,3 +133,17 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'full',
+        'height': 300,
+    },
+}
+
+RECAPTCHA_PUBLIC_KEY = '6LddLC0pAAAAAG2u0P97oeEzmCjufurYgBxKdG1z'
+RECAPTCHA_PRIVATE_KEY = '6LddLC0pAAAAAI7ElDhOTY3ho7WUyvxh-ViyBkO8'
+
+

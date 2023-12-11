@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .models import Profile
+from django.conf import settings
+from django.conf import settings
+from django_recaptcha.fields import ReCaptchaField
+from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -17,6 +21,7 @@ class UserUpdateForm(forms.ModelForm):
                                  widget=forms.TextInput(attrs={"class": "form-control mb-1"}))
     last_name = forms.CharField(max_length=100,
                                 widget=forms.TextInput(attrs={"class": "form-control mb-1"}))
+
 
     class Meta:
         model = User
@@ -89,6 +94,11 @@ class UserLoginForm(AuthenticationForm):
     Форма авторизации на сайте
     """
 
+    recaptcha = ReCaptchaField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'recaptcha']
     def __init__(self, *args, **kwargs):
         """
         Обновление стилей формы регистрации
@@ -96,9 +106,7 @@ class UserLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields['username'].widget.attrs['placeholder'] = 'Логин пользователя'
+            self.fields['username'].widget.attrs['class'] = 'form-control'
             self.fields['password'].widget.attrs['placeholder'] = 'Пароль пользователя'
+            self.fields['password'].widget.attrs['class'] = 'form-control'
             self.fields['username'].label = 'Логин'
-            self.fields[field].widget.attrs.update({
-                'class': 'form-control',
-                'autocomplete': 'off'
-            })
