@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_mptt_admin.admin import DjangoMpttAdmin
-from .models import Category, Post
+from .models import Category, Post, Rating
 from mptt.admin import DraggableMPTTAdmin
 from .models import Comment
 
@@ -28,3 +28,9 @@ class CommentAdminPage(DjangoMpttAdmin):
     """
     pass
 
+@admin.register(Rating)
+class RatingAdmin(admin.ModelAdmin):
+    """
+    Админ-панель модели рейтинга
+    """
+    pass
