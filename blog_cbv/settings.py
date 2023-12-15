@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p%d2_o0fe=l1v3%k_e&b=%v631c_4hjjt9!f6=8avx!r4++%k$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 INTERNAL_IPS = [
@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'apps.accounts.middleware.ActiveUserMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_cbv.urls'
@@ -146,4 +147,9 @@ CKEDITOR_CONFIGS = {
 RECAPTCHA_PUBLIC_KEY = '6LddLC0pAAAAAG2u0P97oeEzmCjufurYgBxKdG1z'
 RECAPTCHA_PRIVATE_KEY = '6LddLC0pAAAAAI7ElDhOTY3ho7WUyvxh-ViyBkO8'
 
-
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': (BASE_DIR / 'cache'),
+    }
+}
